@@ -1,0 +1,35 @@
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+	<script type="text/javascript">
+		function toSettingActivity(){
+			window.JsInterfaceMain.toSettingActivity();
+		}
+
+		function addApi(str){
+			var str = window.JsInterfaceMain.callApi();
+			document.getElementById("MSG1").value = str;
+			var str1 = window.JsInterfaceMain.getLink();
+			document.getElementById("MSG").value = str1;
+		}
+
+		function addS(str1){
+			document.getElementById("MSG").value = str1;
+		}
+
+	</script>
+	<style type="text/css">
+	
+	</style>
+</head>
+	<body align="center">
+		<textarea name="MSG" id = "MSG"cols=40 rows=4 onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea></br>
+		<textarea name="MSG1" id = "MSG1"cols=40 rows=4 onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea></br>
+		<input type="button" onclick="toSettingActivity();" value="设置">
+		<input type="button" onclick="addApi();" value="API呼叫">
+
+	</body>
+
+</html>

@@ -21,13 +21,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         webView = (WebView) findViewById(R.id.loginwebView);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.addJavascriptInterface(new JsInterface(),"JsInterface");
+        webView.addJavascriptInterface(new JsInterfaceLogin(),"JsInterfaceLogin");
         webView.setWebChromeClient(new WebChromeClient() {
         });
         webView.loadUrl("file:///android_asset/login.html");
     }
 
-    public class JsInterface{
+    public class JsInterfaceLogin{
         @JavascriptInterface
         public void toMainActivity(){
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
