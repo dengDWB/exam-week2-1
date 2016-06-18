@@ -1,0 +1,6 @@
+:clean
+:app:clean
+
+BUILD SUCCESSFUL
+
+Total time: 5.918 secs
