@@ -27,3 +27,17 @@
 4.
 
 ![](http://i.imgur.com/lM3IKRa.png)
+
+## 视图 Setting ##
+
+1.
+
+![](http://i.imgur.com/4ehlVTV.png)
+
+2.
+
+![](http://i.imgur.com/y80XBcY.png)
+
+3.
+
+![](http://i.imgur.com/090j7q9.png)
