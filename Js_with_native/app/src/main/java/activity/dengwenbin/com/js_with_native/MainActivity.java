@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity{
     private String str="";
     private String s="";
     private String link = "https://api.github.com/repos/square/okhttp/issues/2635";
-    private Boolean state = true;
-    static Boolean activityState = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,10 +95,9 @@ public class MainActivity extends AppCompatActivity{
         super.onStart();
         Application.activityState = true;
         if(!Tools.isBackstage(this)) {
-            Log.i("State", "开始工作");
-            if (!state) {
+            if (!Application.state) {
                 Tools.showDialog(this, "开始工作");
-                state = true;
+                Application.state = true;
             } else if (Application.screenState == false && Application.count >= 0) {
                 Tools.showDialog(this, "欢迎归来");
             }
@@ -113,7 +110,7 @@ public class MainActivity extends AppCompatActivity{
         Application.activityState = false;
         if(Tools.isBackstage(this)){
             Log.i("State","我休息一下");
-            state = false;
+            Application.state = false;
         }
     }
 }
