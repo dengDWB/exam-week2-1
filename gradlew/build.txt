@@ -2,64 +2,81 @@
 :app:preDebugBuild UP-TO-DATE
 :app:checkDebugManifest
 :app:preReleaseBuild UP-TO-DATE
-:app:prepareComAndroidSupportAnimatedVectorDrawable2330Library
-:app:prepareComAndroidSupportAppcompatV72330Library
-:app:prepareComAndroidSupportSupportV42330Library
-:app:prepareComAndroidSupportSupportVectorDrawable2330Library
-:app:prepareComSquareupLeakcanaryLeakcanaryAndroid13Library
+:app:prepareComAndroidSupportAnimatedVectorDrawable2330Library UP-TO-DATE
+:app:prepareComAndroidSupportAppcompatV72330Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportV42330Library UP-TO-DATE
+:app:prepareComAndroidSupportSupportVectorDrawable2330Library UP-TO-DATE
+:app:prepareComSquareupLeakcanaryLeakcanaryAndroid13Library UP-TO-DATE
 :app:prepareDebugDependencies
-:app:compileDebugAidl
-:app:compileDebugRenderscript
-:app:generateDebugBuildConfig
+:app:compileDebugAidl UP-TO-DATE
+:app:compileDebugRenderscript UP-TO-DATE
+:app:generateDebugBuildConfig UP-TO-DATE
 :app:generateDebugAssets UP-TO-DATE
-:app:mergeDebugAssets
+:app:mergeDebugAssets UP-TO-DATE
 :app:generateDebugResValues UP-TO-DATE
-:app:generateDebugResources
-:app:mergeDebugResources
-:app:processDebugManifest
-:app:processDebugResources
-:app:generateDebugSources
+:app:generateDebugResources UP-TO-DATE
+:app:mergeDebugResources UP-TO-DATE
+:app:processDebugManifest UP-TO-DATE
+:app:processDebugResources UP-TO-DATE
+:app:generateDebugSources UP-TO-DATE
 :app:processDebugJavaRes UP-TO-DATE
-:app:compileDebugJavaWithJavac
+:app:compileDebugJavaWithJavac UP-TO-DATE
 :app:compileDebugNdk UP-TO-DATE
-:app:compileDebugSources
-:app:preDexDebug
-:app:dexDebug
+:app:compileDebugSources UP-TO-DATE
+:app:preDexDebug UP-TO-DATE
+:app:dexDebug UP-TO-DATE
 :app:validateDebugSigning
-:app:packageDebug
-:app:zipalignDebug
-:app:assembleDebug
+:app:packageDebug UP-TO-DATE
+:app:zipalignDebug UP-TO-DATE
+:app:assembleDebug UP-TO-DATE
 :app:checkReleaseManifest
-:app:prepareComSquareupLeakcanaryLeakcanaryAndroidNoOp13Library
+:app:prepareComSquareupLeakcanaryLeakcanaryAndroidNoOp13Library UP-TO-DATE
 :app:prepareReleaseDependencies
-:app:compileReleaseAidl
-:app:compileReleaseRenderscript
-:app:generateReleaseBuildConfig
+:app:compileReleaseAidl UP-TO-DATE
+:app:compileReleaseRenderscript UP-TO-DATE
+:app:generateReleaseBuildConfig UP-TO-DATE
 :app:generateReleaseAssets UP-TO-DATE
-:app:mergeReleaseAssets
-:app:generateReleaseResValues
-:app:generateReleaseResources
-:app:mergeReleaseResources
-:app:processReleaseManifest
-:app:processReleaseResources
-:app:generateReleaseSources
+:app:mergeReleaseAssets UP-TO-DATE
+:app:generateReleaseResValues UP-TO-DATE
+:app:generateReleaseResources UP-TO-DATE
+:app:mergeReleaseResources UP-TO-DATE
+:app:processReleaseManifest UP-TO-DATE
+:app:processReleaseResources UP-TO-DATE
+:app:generateReleaseSources UP-TO-DATE
 :app:processReleaseJavaRes UP-TO-DATE
-:app:compileReleaseJavaWithJavac
+:app:compileReleaseJavaWithJavac UP-TO-DATE
 :app:compileReleaseNdk UP-TO-DATE
-:app:compileReleaseSources
-:app:preDexRelease
-:app:dexRelease
-:app:packageRelease
-:app:assembleRelease
-:app:assemble
+:app:compileReleaseSources UP-TO-DATE
+:app:preDexRelease UP-TO-DATE
+:app:dexRelease UP-TO-DATE
+:app:packageRelease UP-TO-DATE
+:app:assembleRelease UP-TO-DATE
+:app:assemble UP-TO-DATE
 :app:compileLint
 :app:lint
-Ran lint on variant release: 10 issues found
-Ran lint on variant debug: 10 issues found
-Wrote HTML report to file:/D:/project2/Js_with_native/app/build/outputs/lint-results.html
-Wrote XML report to D:\project2\Js_with_native\app\build\outputs\lint-results.xml
-:app:lint FAILED
+Ran lint on variant debug: 11 issues found
+Ran lint on variant release: 11 issues found
+Wrote HTML report to file:/D:/test/exam-week2-1/Js_with_native/app/build/outputs/lint-results.html
+Wrote XML report to D:\test\exam-week2-1\Js_with_native\app\build\outputs\lint-results.xml
+:app:preDebugUnitTestBuild UP-TO-DATE
+:app:prepareDebugUnitTestDependencies
+:app:processDebugUnitTestJavaRes UP-TO-DATE
+:app:compileDebugUnitTestJavaWithJavac UP-TO-DATE
+:app:compileDebugUnitTestSources UP-TO-DATE
+:app:mockableAndroidJar UP-TO-DATE
+:app:assembleDebugUnitTest UP-TO-DATE
+:app:testDebugUnitTest UP-TO-DATE
+:app:preReleaseUnitTestBuild UP-TO-DATE
+:app:prepareReleaseUnitTestDependencies
+:app:processReleaseUnitTestJavaRes UP-TO-DATE
+:app:compileReleaseUnitTestJavaWithJavac UP-TO-DATE
+:app:compileReleaseUnitTestSources UP-TO-DATE
+:app:assembleReleaseUnitTest UP-TO-DATE
+:app:testReleaseUnitTest UP-TO-DATE
+:app:test UP-TO-DATE
+:app:check
+:app:build
 
-BUILD FAILED
+BUILD SUCCESSFUL
 
-Total time: 59.13 secs
+Total time: 8.551 secs

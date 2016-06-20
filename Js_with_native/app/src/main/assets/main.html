@@ -7,16 +7,15 @@
 		function toSettingActivity(){
 			window.JsInterfaceMain.toSettingActivity();
 		}
-
-		function addApi(str){
-			var str = window.JsInterfaceMain.callApi();
-			document.getElementById("MSG1").value = str;
-			var str1 = window.JsInterfaceMain.getLink();
-			document.getElementById("MSG").value = str1;
+		function callApi(){
+			window.JsInterfaceMain.callApi();
+		}
+		function setLink(str){
+			document.getElementById("MSG").value = str;
 		}
 
-		function addS(str1){
-			document.getElementById("MSG").value = str1;
+		function setContent(str1){
+			document.getElementById("MSG1").value = str1;
 		}
 
 	</script>
@@ -28,7 +27,7 @@
 		<textarea name="MSG" id = "MSG"cols=40 rows=4 onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea></br>
 		<textarea name="MSG1" id = "MSG1"cols=40 rows=4 onpropertychange= "this.style.posHeight=this.scrollHeight "></textarea></br>
 		<input type="button" onclick="toSettingActivity();" value="设置">
-		<input type="button" onclick="addApi();" value="API呼叫">
+		<input type="button" onclick="callApi();" value="API呼叫">
 
 	</body>
 

@@ -47,9 +47,7 @@ public class ScreenListener {
         getScreenState();
     }
 
-    /**
-     * 获取screen状态
-     */
+
     private void getScreenState() {
         PowerManager manager = (PowerManager) mContext
                 .getSystemService(Context.POWER_SERVICE);
@@ -64,16 +62,12 @@ public class ScreenListener {
         }
     }
 
-    /**
-     * 停止screen状态监听
-     */
+
     public void unregisterListener() {
         mContext.unregisterReceiver(mScreenReceiver);
     }
 
-    /**
-     * 启动screen状态广播接收器
-     */
+
     private void registerListener() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_SCREEN_ON);
@@ -82,7 +76,7 @@ public class ScreenListener {
         mContext.registerReceiver(mScreenReceiver, filter);
     }
 
-    public interface ScreenStateListener {// 返回给调用者屏幕状态信息
+    public interface ScreenStateListener {
         public void onScreenOn();
 
         public void onScreenOff();

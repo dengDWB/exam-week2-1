@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -27,8 +29,7 @@ public class MainActivity extends AppCompatActivity{
     private String str="";
     private String s="";
     private String link = "https://api.github.com/repos/square/okhttp/issues/2635";
-    private Boolean state = true;
-    static Boolean activityState = true;
+    private Call call;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,30 +51,35 @@ public class MainActivity extends AppCompatActivity{
         }
 
         @JavascriptInterface
-        public String callApi(){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        getAPI();
-                        System.out.println(s);
-                        if(s.equals("")) {
-                            Thread.sleep(2000);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-            return s;
+        public void callApi() throws IOException {
+            getAPI();
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        getAPI();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//            webView.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    if(s.equals("")){
+//                        try {
+//                            Log.e("State","Main进入");
+//                            Thread.sleep(2000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }else if (!s.equals("")) {
+//                            webView.loadUrl("javascript:setLink(\'" + link + "\')");
+//                            webView.loadUrl("javascript:setContent(\'" + s + "\')");
+//                        }
+//                }
+//            });
         }
-        @JavascriptInterface
-        public String getLink(){
-            return link;
-        }
-
     }
 
     public void getAPI() throws IOException {
@@ -82,13 +88,31 @@ public class MainActivity extends AppCompatActivity{
                 .url("https://api.github.com/repos/square/okhttp/issues/2635")
                 .addHeader("Accept", "application/json; q=0.5")
                 .build();
-        Response response = client.newCall(request).execute();
-        str = response.body().string();
-        System.out.println(str);
-        String str1 ="'";
-        Pattern pattern = Pattern.compile(str1);
-        Matcher matcher = pattern.matcher(str);
-        s= matcher.replaceAll("l");
+//        Response response = client.newCall(request).execute();
+        call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                str = response.body().string();
+                System.out.println(str);
+                String str1 ="'";
+                Pattern pattern = Pattern.compile(str1);
+                Matcher matcher = pattern.matcher(str);
+                s= matcher.replaceAll("l");
+                sendPost();
+            }
+        });
+//        str = response.body().string();
+//        System.out.println(str);
+//        String str1 ="'";
+//        Pattern pattern = Pattern.compile(str1);
+//        Matcher matcher = pattern.matcher(str);
+//        s= matcher.replaceAll("l");
 
     }
 
@@ -97,10 +121,9 @@ public class MainActivity extends AppCompatActivity{
         super.onStart();
         Application.activityState = true;
         if(!Tools.isBackstage(this)) {
-            Log.i("State", "开始工作");
-            if (!state) {
+            if (!Application.state) {
                 Tools.showDialog(this, "开始工作");
-                state = true;
+                Application.state = true;
             } else if (Application.screenState == false && Application.count >= 0) {
                 Tools.showDialog(this, "欢迎归来");
             }
@@ -113,7 +136,26 @@ public class MainActivity extends AppCompatActivity{
         Application.activityState = false;
         if(Tools.isBackstage(this)){
             Log.i("State","我休息一下");
-            state = false;
+            Application.state = false;
         }
     }
+
+    public void sendPost(){
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                if(s.equals("")){
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }else if (!s.equals("")) {
+                    webView.loadUrl("javascript:setLink(\'" + link + "\')");
+                    webView.loadUrl("javascript:setContent(\'" + s + "\')");
+                }
+            }
+        });
+    }
+
 }

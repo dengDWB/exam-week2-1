@@ -30,7 +30,6 @@ public class Tools {
     public static void showDialog(Context context ,final String str){
         AlertDialog.Builder builder= new AlertDialog.Builder(context);
         builder.setIcon(R.mipmap.ic_launcher);
-        builder.setTitle("显示输入框的内容");
         builder.setMessage(str);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override

@@ -15,8 +15,6 @@ import android.webkit.WebView;
 public class SettingActivity extends AppCompatActivity {
 
     private WebView webView;
-    private Boolean state = true;
-    static Boolean activityState = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +31,9 @@ public class SettingActivity extends AppCompatActivity {
     public class JsInterfaceSetting{
         @JavascriptInterface
         public void toMainActivity(){
-            Intent intent = new Intent(SettingActivity.this,MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+//            Intent intent = new Intent(SettingActivity.this,MainActivity.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
             finish();
         }
         @JavascriptInterface
@@ -53,10 +51,9 @@ public class SettingActivity extends AppCompatActivity {
         super.onStart();
         Application.activityState = true;
         if(!Tools.isBackstage(this)){
-            Log.i("State", "开始工作");
-            if(!state){
+            if(!Application.state){
                 Tools.showDialog(this, "开始工作");
-                state=true;
+                Application.state=true;
             }else if(Application.screenState==false && Application.count>=0){
                 Tools.showDialog(this,"欢迎归来");
             }
@@ -69,7 +66,7 @@ public class SettingActivity extends AppCompatActivity {
         Application.activityState = false;
         if(Tools.isBackstage(this)){
             Log.i("State","我休息一下");
-            state = false;
+            Application.state = false;
         }
     }
 }
