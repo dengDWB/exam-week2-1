@@ -2,49 +2,63 @@
 
 ## Activity的4种加载模式 ##
 
-在android的多activity开发中，activity之间的跳转可能需要有多种方式，有时是普通的生成一个新实例，有时希望跳转到原来某个activity实例，而不是生成大量的重复的activity。加载模式便是决定以哪种方式启动一个跳转到原来某个Activity实例。
 
-在android里，有4种activity的启动模式，分别为：
+在配置Activity时，可以指定android:launchMode属性，该属性用于配置该Activity的加载模式，支持如下四种模式：
+
+- **standard 标准模式，这是默认的加载模式**
 
 
-standard: 默认模式，启动的所有Activity都会入栈，无论是之前启动过的还是没有启动过的，最终会形成的特色栈况为： ABCDEF…….或者ABCDDCEFAB……..。
+- **singleTop Task顶单例模式**
 
-singleTop: 跟标准模式唯一的区别就是，当栈顶为要启动的Activity时，复用该Activity，只会调用onNewIntent，而不会onCreate。所以不会出现ABCDD,而只会有ABCD
 
-singleTask: 来了intent后，检查栈中是否存在该activity的实例，如果存在就把intent发送给它，否则就创建一个新的该activity的实例，放入一个新的task栈的栈底。肯定位于一个task的栈底，而且栈中只能有它一个该activity实例，但允许其他activity加入该栈。解决了在一个task中共享一个activity。
+- **singleTask Task内单例模式**
 
-singleInstance: 这个跟singleTask基本上是一样，只有一个区别：在这个模式下的Activity实例所处的task中，只能有这个activity实例，不能有其他的实例。一旦该模式的activity的实例已经存在于某个栈中，任何应用在激活该activity时都会重用该栈中的实例，解决了多个task共享一个activity。
 
-这些启动模式可以在功能清单文件AndroidManifest.xml中进行设置，中的launchMode属性。
+- **singleInstance 全局单例模式**
 
-影响加载模式的一些特性：
+Android采用Task来管理多个Activity，当启动一个应用时，系统为之创建一个Task，然后启动入口Activity。Android并没有为Task提供API，所以我们不能直接访问Task，只能调用getTaskID()来获取Activity所在Task的ID。我们可以把Task理解为栈，先启动的Acitivity放在栈底，后启动的Activity放在栈顶。
 
-核心的Intent Flag有：
 
-FLAG_ACTIVITY_NEW_TASK 
+Activity的加载模式，就是**负责管理实例化、加载Activity的方式，并控制Activity与Task之间的加载关系**。
 
-FLAG_ACTIVITY_CLEAR_TOP
- 
-FLAG_ACTIVITY_RESET_TASK_IF_NEEDED 
+### standard 模式 ###
 
-FLAG_ACTIVITY_SINGLE_TOP 
+每次通过这种模式启动目标Activity时，系统会为目标Activity创建新的实例，并将该Activity加入当前Task栈中。这种模式不会启动新的Task，新的Acitivty将被加入到原有Task中
 
-核心的特性有： 
-taskAffinity 
+### singleTop 模式 ###
 
-launchMode 
+将要被启动的Avtivity没有在Task栈顶时，与standard模式无异。当要启动的Activity已经位于Task栈顶时，系统不会重新创建目标Activity实例，而是复用已有的Activity实例
 
-allowTaskReparenting 
+### singleTask 模式 ###
 
-clearTaskOnLaunch 
+当采用这种模式时，要加载的Activity在同一Task内只会存在唯一实例。系统采用singleTask模式启动目标Activity时，会有如下三种可能性
 
-alwaysRetainTaskState
- 
-finishOnTaskLaunch
 
-Activity在Activity栈（Task）中的加载顺序是可以控制的，这就需要用到Intent Flag
 
-Task相当于一个栈，用来管理Activity，默认情况下每一个程序都会拥有一个自己的Task，有自己独立的id，所以一个手机同时可能会拥有很多Task，标识就是id，默认情况下跟包名有关系
+- 将要启动的Activity在Task栈中不存在，则系统会创建目标Activity的实例，并将它加入Task栈顶。
+
+
+- 将要启动的Activity已在Task栈顶，此时与singleTop模式行为相同。
+
+
+- 将要启动的目标Activity已存在，但不在Task栈顶，系统将会把位于该Activity上面的所有Activity移出Task栈，从而使目标Activity转到栈顶
+
+### singleInstance 模式 ###
+
+在这种模式下，系统保证无论从哪个Task栈中启动目标Activity，只会创建一个目标Activity实例，并会使用一个全新的栈来装在该Activity实例。有如下两种情况
+
+
+
+- 要启动的目标Activity不存在时，系统会创建一个全新的Task，再创建目标Activity的实例，并将它加入新创建的Task的栈顶。
+
+
+- 要启动的目标Activity已存在时，无论它在哪个应用程序中，无论它位于哪个Task栈中，系统会把该Activity所在的Task转到前台，从而使该Activity显示出来。
+
+采用singleInstance模式启动的Activity，它所在的Task只包含该Acitivty，并且该Activity总位于栈顶（显而易见）
+
+
+
+
 
 ## Intent常用标识 ##
 
@@ -54,19 +68,17 @@ Task相当于一个栈，用来管理Activity，默认情况下每一个程序�
 
 **FLAG_ACTIVITY_CLEAR_TOP**
 
-如果设置，并且这个Activity已经在当前的Task中运行，因此，不再是重新启动一个这个Activity的实例，而是在这个Activity上方的所有Activity都将关闭，然后这个Intent会作为一个新的Intent投递到老的Activity（现在位于顶端）中。
+如果设置，并且这个Activity已经在当前的Task中运行，因此，不再是重新启动一个这个Activity的实例，而是在这个Activity上方的所有Activity都将关闭，然后这个Intent会作为一个新的Intent投递到老的Activity（现在位于顶端）中。 
 
-**如果在ABCD的堆栈状态下，以该标识启动B，则会销毁CD，且B也是重新创建的（与singleTask有区别），如果配合FLAG_ACTIVITY_SINGLE_TOP，则就会成为singleTask的模式**
-
-上例中正在运行的Activity B既可以在onNewIntent()中接收到这个新的Intent，也可以把自己关闭然后重新启动来接收这个Intent。如果它的启动模式声明为 “multiple”(默认值)，并且你没有在这个Intent中设置FLAG_ACTIVITY_SINGLE_TOP标志，那么它将关闭然后重新创建；对于其它的启动模式，或者在这个Intent中设置FLAG_ACTIVITY_SINGLE_TOP标志，都将把这个Intent投递到当前这个实例的onNewIntent()中。
-
-这个启动模式还可以与FLAG_ACTIVITY_NEW_TASK结合起来使用：用于启动一个Task中的根Activity，它会把那个Task中任何运行的实例带入前台，然后清除它直到根Activity。这非常有用，例如，当从Notification Manager处启动一个Activity。
+例如，假设一个Task中包含这些Activity：A，B，C，D。如果D调用了startActivity()，并且包含一个指向Activity B的Intent，那么，C和D都将结束，然后B接收到这个Intent，因此，目前stack的状况是：A，B。 上例中正在运行的Activity B既可以在onNewIntent()中接收到这个新的Intent，也可以把自己关闭然后重新启动来接收这个Intent。如果它的启动模式声明为“multiple”(默认值)，并且你没有在这个Intent中设置
+FLAG_ACTIVITY_SINGLE_TOP标志，那么它将关闭然后重新创建；对于其它的启动模式，或者在这个Intent中设置FLAG_ACTIVITY_SINGLE_TOP标志，都将把这个Intent投递到当前这个实例的onNewIntent()中。 这个启动模式还可以与FLAG_ACTIVITY_NEW_TASK结合起来使用：用于启动一个Task中的根Activity，它会把那个Task中任何运行的实例带入前台，然后清除它直到根Activity。这非常有用，例如，当从Notification Manager处启动一个Activity。
 
 **FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET**
 
-如果设置，这将在Task的Activity stack中设置一个还原点，当Task恢复时，需要清理Activity。也就是说，下一次Task带着 FLAG_ACTIVITY_RESET_TASK_IF_NEEDED标记进入前台时（典型的操作是用户在主画面重启它），这个Activity和它之上的都将关闭，以至于用户不能再返回到它们，但是可以回到之前的Activity。
+如果设置，这将在Task的Activity stack中设置一个还原点，当Task恢复时，需要清理Activity。也就是说，下一次Task带着FLAG_ACTIVITY_RESET_TASK_IF_NEEDED标记进入前台时（典型的操作是用户在主画面重启它），这个Activity和它之上的都将关闭，以至于用户不能再返回到它们，但是可以回到之前的Activity。 这在你的程序有分割点的时候很有用。
 
-这在你的程序有分割点的时候很有用。例如，一个e-mail应用程序可能有一个操作是查看一个附件，需要启动图片浏览Activity来显示。这个 Activity应该作为e-mail应用程序Task的一部分，因为这是用户在这个Task中触发的操作。然而，当用户离开这个Task，然后从主画面选择e-mail app，我们可能希望回到查看的会话中，但不是查看图片附件，因为这让人困惑。通过在启动图片浏览时设定这个标志，浏览及其它启动的Activity在下次用户返回到mail程序时都将全部清除。
+例如，一个e-mail应用程序可能有一个操作是查看一个附件，需要启动图片浏览Activity来显示。这个Activity应该作为e-mail应用程序Task的一部分，因为这是用户在这个Task中触发的操作。然而，当用户离开这个Task，然后从主画面选择e-mail app，我们可能希望回到查看的会话中，但不是查看图片附件，因为这让人困惑。通过在启动图片浏览时设定这个标志，浏览及其它启动的Activity在下次用户返回到mail程序时都将全部清除
+
 
 **FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS**
 
@@ -132,4 +144,3 @@ Task相当于一个栈，用来管理Activity，默认情况下每一个程序�
 
 如果设置，当这个Activity位于历史stack的顶端运行时，不再启动一个新的。
  
-注意：如果是从BroadcastReceiver启动一个新的Activity，或者是从Service往一个Activity跳转时，不要忘记添加Intent的Flag为FLAG_ACTIVITY_NEW_TASK。
