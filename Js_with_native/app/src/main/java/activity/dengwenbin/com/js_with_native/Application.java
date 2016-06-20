@@ -11,10 +11,10 @@ import com.squareup.leakcanary.LeakCanary;
 public class Application extends android.app.Application {
 
     Context context;
-    static Boolean screenState = true;
-    static int count=0;
-    static Boolean activityState= true;
-    static Boolean state = true;
+    public static Boolean screenState = true;
+    public static int count=0;
+    public static Boolean activityState= true;
+    public static Boolean state = true;
 
     @Override
     public void onCreate() {

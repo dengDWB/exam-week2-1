@@ -53,32 +53,6 @@ public class MainActivity extends AppCompatActivity{
         @JavascriptInterface
         public void callApi() throws IOException {
             getAPI();
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        getAPI();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//            webView.post(new Runnable() {
-//                @Override
-//                public void run() {
-//                    if(s.equals("")){
-//                        try {
-//                            Log.e("State","Main进入");
-//                            Thread.sleep(2000);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }else if (!s.equals("")) {
-//                            webView.loadUrl("javascript:setLink(\'" + link + "\')");
-//                            webView.loadUrl("javascript:setContent(\'" + s + "\')");
-//                        }
-//                }
-//            });
         }
     }
 
@@ -88,7 +62,6 @@ public class MainActivity extends AppCompatActivity{
                 .url("https://api.github.com/repos/square/okhttp/issues/2635")
                 .addHeader("Accept", "application/json; q=0.5")
                 .build();
-//        Response response = client.newCall(request).execute();
         call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -107,13 +80,6 @@ public class MainActivity extends AppCompatActivity{
                 sendPost();
             }
         });
-//        str = response.body().string();
-//        System.out.println(str);
-//        String str1 ="'";
-//        Pattern pattern = Pattern.compile(str1);
-//        Matcher matcher = pattern.matcher(str);
-//        s= matcher.replaceAll("l");
-
     }
 
     @Override
