@@ -1,58 +1,6 @@
 
-##  苹果尺寸##
-
-![](http://i.imgur.com/mlISdFP.png)
-
-1.**应用程序图标**
-
-for iPhone6 plus(@3x) : 180 x 180
-for iPhone 6/5s/5/4s/4(@2x) : 120 x 120
-
-
-2.**系统搜索框图标 (Spotlight search results icon)**
-for iPhone6 plus(@3x) : 1024 × 1024
-for iPhone6/5s/5/4s/4(@2x) : 1024 × 1024
-
-for iPhone6 plus(@3x) : 120 x 120
-for iPhone6/5s/5/4s/4(@2x) : 80 x 80
-
-
-3.**系统设置图标 (Settings icon)**
-
-for iPhone6 plus(@3x) : 87 x 87
-for iPhone6/5s/5/4s/4(@2x) : 58 x 58
-
-4. **启动图片 (launch image)**
-
-
-for iPhoen5s/5(@2x) : 640 x 1136
-for iPhoen4s/4(@2x) : 640 x 960
-
-iPhone6/iPhone6 plus 建议使用 launch file 或 storyboard ；如果依然想使用图片，尺寸数值为：
-
-for iPhone 6(@2x) : 750 x 1334
-
-for iPhone 6 plus (@3x) : 1242 x 2208
-
-5.**为App Store的应用程序图标 **
-
-for iPhone6 plus(@3x) : 1024 × 1024
-for iPhone6/5s/5/4s/4(@2x) : 1024 × 1024
-
-6.**工具栏和导航栏图标**
-
-for iPhone6 plus(@3x) : About 66 × 66
-
-for iPhone6/5s/5/4s/4(@2x) : About 44 × 44
-
-7.**标签栏图标**
-
-for iPhone6 plus(@3x) : About 75 × 75   (maximum: 144 × 96)
-
-for iPhone6/5s/5/4s/4(@2x) : About 50 × 50 (maximum: 96 × 64)
-
-
 ## android尺寸 ##
+
 ### 屏幕尺寸 ###
 
 指实际的物理尺寸，为屏幕对角线的测量。
@@ -61,20 +9,23 @@ for iPhone6/5s/5/4s/4(@2x) : About 50 × 50 (maximum: 96 × 64)
 
 ### 屏幕分辨率
 
-屏幕分辨率是指在横纵向上的像素点数，单位是px，1px=1个像素点。一般以纵向像素*横向像素，如1960*1080。 
+屏幕分辨率是指在横纵向上的像素点数，单位是px，1px=1个像素点。一般以纵向像素*横向像素，如1960\*1080。 
 
 ### dp、dip、dpi、sp、px ###
 
-px，代表屏幕上一个物理的像素点代表屏幕上一个物理的像素点。
-屏幕密度
-为解决Android设备碎片化，引入一个概念DP，也就是密度。指在一定尺寸的物理屏幕上显示像素的数量，通常指分辨率。 为了简单起见，Android把屏幕密度分为了四个广义的大小：低（120dpi）、中（160dpi）、高（240dpi）和超高（320dpi） 像素= DP * （ DPI / 160 ) 例如，在一个240dpi的屏幕里，1DP等于1.5PX。
+**px**:代表屏幕上一个物理的像素点代表屏幕上一个物理的像素点。
+
+**屏幕密度**
+
+为解决Android设备碎片化，引入一个概念DP，也就是密度。指在一定尺寸的物理屏幕上显示像素的数量，通常指分辨率。 为了简单起见，Android把屏幕密度分为了四个广义的大小：低（120dpi）、中（160dpi）、高（240dpi）和超高（320dpi） 像素= DP \* （ DPI / 160 ) 例如，在一个240dpi的屏幕里，1DP等于1.5PX。
+
 于设计来说，选取一个合适的尺寸作为正常大小和中等屏幕密度（尺寸的选取依据打算适配的硬件，建议参考现主流硬件分辨率），然后向下和向上 做小、大、特大和低、高、超高的尺寸与密度比如UI设计、Android原生API都会以px作为统一的计量单位，像是获取屏幕宽高等。
 
-dip和dp是一个意思，都是Density Independent Pixels的缩写，即密度无关像素，上面我们说过，dpi是屏幕像素密度，假如一英寸里面有160个像素，这个屏幕的像素密度就是160dpi，那么在这种情况下，dp和px如何换算呢？在Android中，规定以160dpi为基准，1dip=1px，如果密度是320dpi，则1dip=2px，以此类推。
+**dip**和**dp**是一个意思，都是Density Independent Pixels的缩写，即密度无关像素，上面我们说过，dpi是屏幕像素密度，假如一英寸里面有160个像素，这个屏幕的像素密度就是160dpi，那么在这种情况下，dp和px如何换算呢？在Android中，规定以160dpi为基准，1dip=1px，如果密度是320dpi，则1dip=2px，以此类推。
 
-假如同样都是画一条320px的线，在480*800分辨率手机上显示为2/3屏幕宽度，在320*480的手机上则占满了全屏，如果使用dp为单位，在这两种分辨率下，160dp都显示为屏幕一半的长度。这也是为什么在Android开发中，写布局的时候要尽量使用dp而不是px的原因。
+假如同样都是画一条320px的线，在480\*800分辨率手机上显示为2/3屏幕宽度，在320\*480的手机上则占满了全屏，如果使用dp为单位，在这两种分辨率下，160dp都显示为屏幕一半的长度。这也是为什么在Android开发中，写布局的时候要尽量使用dp而不是px的原因。
 
-而sp，即scale-independent pixels，与dp类似，但是可以根据文字大小首选项进行放缩，是设置字体大小的御用单位。
+而**sp**，即scale-independent pixels，与dp类似，但是可以根据文字大小首选项进行放缩，是设置字体大小的御用单位。
 
 mdpi、hdpi、xdpi、xxdpi
 
@@ -90,16 +41,31 @@ mdpi、hdpi、xdpi、xxdpi用来修饰Android中的drawable文件夹及values文
 LDPI (Low Density Screen，120 DPI)，其图标大小为 36 x 36 px。
 
 
+
 MDPI (Medium Density Screen, 160 DPI)，其图标大小为 48 x 48 px。
+![](http://i.imgur.com/9Sbf0st.png)
 
 
 HDPI (High Density Screen, 240 DPI)，其图标大小为 72 x 72 px。
+![](http://i.imgur.com/hihd5gk.png)
 
 
 xhdpi (Extra-high density screen, 320 DPI)，其图标大小为 96 x 96 px。
+![](http://i.imgur.com/n8f8bHD.png)
 
 
 xxhdpi（xx-high density screen, 480 DPI）,其图标大小为144 x 144 px。
+![](http://i.imgur.com/86EbC69.png)
+
+
+上述的图片例子是在1080\*1920分辨率的手机上运行的，通过设置应用程序不同分辨率的应用图标，发现在分辨率越高的手机上需要的应用图标的分辨率也是要高的，但是换算原则是什么了，为什么240dpi、320dpi、480dpi的应用图标上应用图标这么小，图片都是一样的只是分辨率不同而已，为什么差距这么大了
+
+1080\*1920它的dpi是480DPI是怎么算出来的了，先是用勾股定理，在用勾股定理算出的值除以屏幕尺寸，就可以得到了。
+
+举一个例子，假设有一个1080\*1920的5英寸手机，算法就是 1928^2+1080^2=2202^2,然后用2202/5差不多等于440，也就是440dpi,也就接近480dpi，所以也是为什么xxhdpi显示的最好，为什么其他几个尺寸为什么这么小了，可以这么理解吧，160dpi、240dpi、320dpi代表一些东西的数量，我有一个坑，要填满，假设我们知道要多少数量的东西可以填满坑，如果比这个数量小的数量东西来填的话，就会显的坑周围还有很多地方可以填。所以这个也是为什么比480dpi小的,在手机上显示的图标小。
+
+为什么160dpi是48x48px了，我找到的规律来看，用160/48=3.333，其他的也是，你可以记作1dpi==3.33px
+
 
 
 ### Android安卓系统dp/sp/px换算表 ###
